@@ -12,11 +12,13 @@ const CalendarGrid = () => {
 		day: {
 			border: "0.5px solid #dadce0",
 		},
-		dayNameBar: {
-			color: "white",
+		dayName: {
+			color: "black",
 			backgroundColor: "#dadce0",
 			display: "flex",
+			flexDirection: "row",
 			justifyContent: "center",
+			alignItems: "center",
 		},
 	};
 	var days = [];
@@ -29,13 +31,11 @@ const CalendarGrid = () => {
 
 	return (
 		<div className="calendarGrid" style={gridStyles.grid}>
-			<div className="dayNameBar">
-				{dayNames.map((letter) => (
-					<div className="dayName">
-						<span>{letter}</span>
-					</div>
-				))}
-			</div>
+			{dayNames.map((letter) => (
+				<div className="dayName" style={gridStyles.dayName}>
+					<span>{letter}</span>
+				</div>
+			))}
 			{days}
 		</div>
 	);
