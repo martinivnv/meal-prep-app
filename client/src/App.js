@@ -31,8 +31,6 @@ function App() {
 					setMonth(month - 1);
 				}
 				break;
-			case "getDate":
-				return [month, year];
 			default:
 				break;
 		}
@@ -42,7 +40,7 @@ function App() {
 		<Router>
 			<div className="container">
 				<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
-				<Calendar />
+				<Calendar month={month} year={year} />
 			</div>
 		</Router>
 	);
