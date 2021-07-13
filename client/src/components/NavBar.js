@@ -9,16 +9,22 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import logo from "../resources/logo.png";
+import Typography from "@material-ui/core/Typography";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
 		flexGrow: 1,
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
 	},
 	navBar: {
-		minHeight: "10vh",
+		maxHeight: "8vh",
 		justifyContent: "center",
 		boxShadow: "none",
 	},
@@ -29,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	logo: {
-		maxHeight: 50,
+		maxHeight: 40,
 	},
 	sectionDesktop: {
 		display: "none",
@@ -45,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function NavBar() {
+export default function NavBar(props) {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -68,6 +74,49 @@ export default function NavBar() {
 
 	const handleMobileMenuOpen = (event) => {
 		setMobileMoreAnchorEl(event.currentTarget);
+	};
+
+	const nextMonth = () => {
+		props.changeMonth("next");
+	};
+
+	const prevMonth = () => {
+		props.changeMonth("prev");
+	};
+
+	const updateDate = () => {
+		props.changeMonth("getDate");
+	};
+
+	const getMonth = () => {
+		switch (props.month) {
+			case 1:
+				return "Jan";
+			case 2:
+				return "Feb";
+			case 3:
+				return "Mar";
+			case 4:
+				return "Apr";
+			case 5:
+				return "May";
+			case 6:
+				return "Jun";
+			case 7:
+				return "Jul";
+			case 8:
+				return "Aug";
+			case 9:
+				return "Sep";
+			case 10:
+				return "Oct";
+			case 11:
+				return "Nov";
+			case 12:
+				return "Dec";
+			default:
+				break;
+		}
 	};
 
 	const menuId = "primary-profile-menu";
@@ -124,7 +173,25 @@ export default function NavBar() {
 						<MenuIcon />
 					</IconButton>
 					<img src={logo} alt="logo" className={classes.logo} />
-					<div className={classes.grow} />
+					<div className={classes.grow}>
+						<IconButton
+							color="inherit"
+							aria-label="go to previous month"
+							onClick={prevMonth}
+						>
+							<ChevronLeftIcon />
+						</IconButton>
+						<Typography variant="h6" className={classes.title}>
+							{getMonth() + " " + props.year}
+						</Typography>
+						<IconButton
+							color="inherit"
+							aria-label="go to next month"
+							onClick={nextMonth}
+						>
+							<ChevronRightIcon />
+						</IconButton>
+					</div>
 					<div className={classes.sectionDesktop}>
 						<IconButton
 							edge="end"
@@ -150,6 +217,7 @@ export default function NavBar() {
 					</div>
 				</Toolbar>
 			</AppBar>
+			{console.log(updateDate())}
 			{renderMobileMenu}
 			{renderMenu}
 		</div>
