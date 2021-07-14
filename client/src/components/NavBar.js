@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,6 +12,7 @@ import logo from "../resources/logo.png";
 import Typography from "@material-ui/core/Typography";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Drawer from "@material-ui/core/Drawer";
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -49,12 +50,15 @@ const useStyles = makeStyles((theme) => ({
 			display: "none",
 		},
 	},
+	drawer: {
+		width: 250,
+	},
 }));
 
 export default function NavBar(props) {
 	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -82,10 +86,6 @@ export default function NavBar(props) {
 
 	const prevMonth = () => {
 		props.changeMonth("prev");
-	};
-
-	const updateDate = () => {
-		props.changeMonth("getDate");
 	};
 
 	const getMonth = () => {
@@ -160,6 +160,10 @@ export default function NavBar(props) {
 		</Menu>
 	);
 
+	const [drawerState, setDrawerState] = useState(false);
+
+	const generateDrawer = () => <div className={classes.drawer}>Test</div>;
+
 	return (
 		<div className={classes.grow}>
 			<AppBar position="static" className={classes.navBar}>
@@ -169,9 +173,17 @@ export default function NavBar(props) {
 						className={classes.menuButton}
 						color="inherit"
 						aria-label="open drawer"
+						onClick={() => setDrawerState(true)}
 					>
 						<MenuIcon />
 					</IconButton>
+					<Drawer
+						anchor={"left"}
+						open={drawerState}
+						onClose={() => setDrawerState(false)}
+					>
+						{generateDrawer()}
+					</Drawer>
 					<img src={logo} alt="logo" className={classes.logo} />
 					<div className={classes.grow}>
 						<IconButton
@@ -217,7 +229,6 @@ export default function NavBar(props) {
 					</div>
 				</Toolbar>
 			</AppBar>
-			{console.log(updateDate())}
 			{renderMobileMenu}
 			{renderMenu}
 		</div>

@@ -4,7 +4,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Calendar from "./components/Calendar";
 import { DateTime } from "luxon";
-import { useState, createContext } from "react";
+import { useState } from "react";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 function App() {
