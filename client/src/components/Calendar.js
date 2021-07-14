@@ -3,8 +3,14 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "./Calendar.css";
-import Modal from "@material-ui/core/Modal";
-import TextField from "@material-ui/core/TextField";
+import {
+	InputLabel,
+	TextField,
+	Modal,
+	Select,
+	MenuItem,
+	Button,
+} from "@material-ui/core";
 
 const Calendar = (props) => {
 	const calendarRef = useRef(null);
@@ -27,14 +33,57 @@ const Calendar = (props) => {
 		portions: 1,
 		cost: 1,
 		type: "",
-		date: Date.now(),
+		date: new Date(),
 	});
 
 	const modalForm = (
 		<div class="modalContent">
 			<h2 id="modalTitle">Add A Meal</h2>
 			<form className="modalForm" noValidate autoComplete="off">
-				<TextField id="meal-name" label="Meal Name" required />
+				<TextField
+					id="meal-name"
+					label="Meal Name"
+					helperText="e.g. Chicken Alfredo"
+					defaultValue={body.name}
+					required
+					//onChange={handleChange}
+				/>
+				<TextField
+					id="num-portions"
+					type="number"
+					label="Portions"
+					defaultValue={body.portions}
+					required
+					//onChange={handleChange}
+				/>
+				<InputLabel id="cost-select-label">Cost</InputLabel>
+				<Select
+					labelId="cost-select-label"
+					id="cost-select"
+					value={body.cost}
+					//onChange={handleChange}
+				>
+					<MenuItem value={1}>$</MenuItem>
+					<MenuItem value={2}>$$</MenuItem>
+					<MenuItem value={3}>$$$</MenuItem>
+				</Select>
+				<InputLabel id="type-select-label">Type</InputLabel>
+				<Select
+					labelId="type-select-label"
+					id="type-select"
+					value={body.type}
+					//onChange={handleChange}
+				>
+					<MenuItem value={"home-cooked"}>Home-Cooked</MenuItem>
+					<MenuItem value={"delivery"}>Delivery</MenuItem>
+					<MenuItem value={"dine out"}>Dine Out</MenuItem>
+				</Select>
+				<Button variant="contained" color="primary">
+					Save
+				</Button>
+				<Button variant="outlined" color="secondary">
+					Cancel
+				</Button>
 			</form>
 		</div>
 	);
