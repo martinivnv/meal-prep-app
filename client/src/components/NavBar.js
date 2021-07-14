@@ -5,14 +5,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import logo from "../resources/logo.png";
 import Typography from "@material-ui/core/Typography";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import Drawer from "@material-ui/core/Drawer";
+// import MenuIcon from "@material-ui/icons/Menu";
+// import Drawer from "@material-ui/core/Drawer";
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -25,18 +25,18 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	navBar: {
-		maxHeight: "8vh",
+		height: "8vh",
 		justifyContent: "center",
 		boxShadow: "none",
 	},
-	title: {
-		display: "none",
-		[theme.breakpoints.up("sm")]: {
-			display: "block",
-		},
-	},
 	logo: {
 		maxHeight: 35,
+	},
+	date: {
+		fontSize: "1.1rem",
+		[theme.breakpoints.up("sm")]: {
+			fontSize: "1.25rem",
+		},
 	},
 	sectionDesktop: {
 		display: "none",
@@ -160,15 +160,15 @@ export default function NavBar(props) {
 		</Menu>
 	);
 
-	const [drawerState, setDrawerState] = useState(false);
+	/**const [drawerState, setDrawerState] = useState(false);
 
-	const generateDrawer = () => <div className={classes.drawer}>Test</div>;
+	const generateDrawer = () => <div className={classes.drawer}>Test</div>;**/
 
 	return (
 		<div className={classes.grow}>
 			<AppBar position="static" className={classes.navBar}>
 				<Toolbar>
-					<IconButton
+					{/**<IconButton
 						edge="start"
 						className={classes.menuButton}
 						color="inherit"
@@ -183,7 +183,7 @@ export default function NavBar(props) {
 						onClose={() => setDrawerState(false)}
 					>
 						{generateDrawer()}
-					</Drawer>
+					</Drawer>**/}
 					<img src={logo} alt="logo" className={classes.logo} />
 					<div className={classes.grow}>
 						<IconButton
@@ -193,7 +193,7 @@ export default function NavBar(props) {
 						>
 							<ChevronLeftIcon />
 						</IconButton>
-						<Typography variant="h6" className={classes.title}>
+						<Typography variant="h6" className={classes.date}>
 							{getMonth() + " " + props.year}
 						</Typography>
 						<IconButton
