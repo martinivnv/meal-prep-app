@@ -4,14 +4,24 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Calendar from "./components/Calendar";
 import { DateTime } from "luxon";
-import { useState } from "react";
+import { useState, createContext } from "react";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 function App() {
 	const now = DateTime.now();
 	const [month, setMonth] = useState(now.month);
 	const [year, setYear] = useState(now.year);
-	console.log(month);
-	console.log(year);
+
+	const theme = createTheme({
+		palette: {
+			primary: {
+				main: "#007769",
+			},
+			secondary: {
+				main: "#ffb300",
+			},
+		},
+	});
 
 	function changeMonthHandler(command) {
 		switch (command) {
@@ -38,10 +48,12 @@ function App() {
 
 	return (
 		<Router>
-			<div className="container">
-				<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
-				<Calendar month={month} year={year} />
-			</div>
+			<ThemeProvider theme={theme}>
+				<div className="container">
+					<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
+					<Calendar month={month} year={year} />
+				</div>
+			</ThemeProvider>
 		</Router>
 	);
 }
