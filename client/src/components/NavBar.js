@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	logo: {
-		maxHeight: 40,
+		maxHeight: 35,
 	},
 	sectionDesktop: {
 		display: "none",
