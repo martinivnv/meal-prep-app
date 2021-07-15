@@ -43,6 +43,19 @@ const Calendar = (props) => {
 		});
 	};
 
+	const handleColour = () => {
+		switch (data.cost) {
+			case 1:
+				return "#28cc2d";
+			case 2:
+				return "#ffbf00";
+			case 3:
+				return "#d2222d";
+			default:
+				return "#3788d8";
+		}
+	};
+
 	const handleOpen = () => setModalOpen(true);
 
 	const handleClose = () => {
@@ -57,6 +70,7 @@ const Calendar = (props) => {
 			start: data.date,
 			end: DateTime.fromISO(data.date).plus({ days: data.portions }).toISO(),
 			allDay: true,
+			color: handleColour(),
 			extendedProps: {
 				portions: data.portions,
 				cost: data.cost,
@@ -74,7 +88,7 @@ const Calendar = (props) => {
 		eventEl.setExtendedProp("portions", data.portions);
 		eventEl.setExtendedProp("cost", data.cost);
 		eventEl.setExtendedProp("type", data.type);
-		eventEl.setAllDay(true);
+		eventEl.setProp("color", handleColour());
 		setEventEl(null);
 		handleClose();
 	};
@@ -103,6 +117,12 @@ const Calendar = (props) => {
 						required
 						onChange={(e) => setData({ ...data, portions: e.target.value })}
 						fullWidth={false}
+						InputProps={{
+							inputProps: {
+								max: 99,
+								min: 1,
+							},
+						}}
 					/>
 					<div id="cost-select-group">
 						<InputLabel id="cost-select-label">Cost *</InputLabel>
@@ -190,8 +210,9 @@ const Calendar = (props) => {
 						portions: e.extendedProps.portions,
 						cost: e.extendedProps.cost,
 						type: e.extendedProps.type,
-						date: e.start,
+						date: e.startStr,
 					});
+					console.log(e);
 					setEventEl(e);
 					setModalType("update");
 					handleOpen();
