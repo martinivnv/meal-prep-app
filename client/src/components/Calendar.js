@@ -11,6 +11,7 @@ import {
 	MenuItem,
 	Button,
 } from "@material-ui/core";
+import { DateTime } from "luxon";
 
 const Calendar = (props) => {
 	const calendarRef = useRef(null);
@@ -24,66 +25,99 @@ const Calendar = (props) => {
 
 	const handleOpen = () => setModalOpen(true);
 
-	const handleClose = () => setModalOpen(false);
+	const handleClose = () => {
+		setData({
+			name: "",
+			portions: 1,
+			cost: 1,
+			type: "",
+			date: DateTime.now(),
+		});
+		setModalOpen(false);
+	};
 
 	const handleSave = () => {};
 
-	const [body, setBody] = useState({
+	const [data, setData] = useState({
 		name: "",
 		portions: 1,
 		cost: 1,
 		type: "",
-		date: new Date(),
+		date: DateTime.now(),
 	});
 
 	const modalForm = (
-		<div class="modalContent">
-			<h2 id="modalTitle">Add A Meal</h2>
+		<div className="modalContent">
+			<h2 id="modalTitle">
+				Add A Meal For{" "}
+				{DateTime.fromISO(data.date).toLocaleString(DateTime.DATE_FULL)}
+			</h2>
 			<form className="modalForm" noValidate autoComplete="off">
 				<TextField
 					id="meal-name"
 					label="Meal Name"
 					helperText="e.g. Chicken Alfredo"
-					defaultValue={body.name}
+					value={data.name}
 					required
-					//onChange={handleChange}
+					onChange={(e) => setData({ ...data, name: e.target.value })}
 				/>
-				<TextField
-					id="num-portions"
-					type="number"
-					label="Portions"
-					defaultValue={body.portions}
-					required
-					//onChange={handleChange}
-				/>
-				<InputLabel id="cost-select-label">Cost</InputLabel>
-				<Select
-					labelId="cost-select-label"
-					id="cost-select"
-					value={body.cost}
-					//onChange={handleChange}
-				>
-					<MenuItem value={1}>$</MenuItem>
-					<MenuItem value={2}>$$</MenuItem>
-					<MenuItem value={3}>$$$</MenuItem>
-				</Select>
-				<InputLabel id="type-select-label">Type</InputLabel>
-				<Select
-					labelId="type-select-label"
-					id="type-select"
-					value={body.type}
-					//onChange={handleChange}
-				>
-					<MenuItem value={"home-cooked"}>Home-Cooked</MenuItem>
-					<MenuItem value={"delivery"}>Delivery</MenuItem>
-					<MenuItem value={"dine out"}>Dine Out</MenuItem>
-				</Select>
-				<Button variant="contained" color="primary">
-					Save
-				</Button>
-				<Button variant="outlined" color="secondary">
-					Cancel
-				</Button>
+				<div id="select-options">
+					<TextField
+						id="num-portions"
+						type="number"
+						label="Portions"
+						value={data.portions}
+						required
+						onChange={(e) => setData({ ...data, portions: e.target.value })}
+						fullWidth={false}
+					/>
+					<div id="cost-select-group">
+						<InputLabel id="cost-select-label">Cost *</InputLabel>
+						<Select
+							labelId="cost-select-label"
+							id="cost-select"
+							value={data.cost}
+							onChange={(e) => setData({ ...data, cost: e.target.value })}
+							required
+						>
+							<MenuItem value={1}>$</MenuItem>
+							<MenuItem value={2}>$$</MenuItem>
+							<MenuItem value={3}>$$$</MenuItem>
+						</Select>
+					</div>
+					<div id="type-select-group">
+						<InputLabel id="type-select-label">Type *</InputLabel>
+						<Select
+							labelId="type-select-label"
+							id="type-select"
+							value={data.type}
+							onChange={(e) => setData({ ...data, type: e.target.value })}
+							required
+						>
+							<MenuItem value={"home-cooked"}>Home-Cooked</MenuItem>
+							<MenuItem value={"delivery"}>Delivery</MenuItem>
+							<MenuItem value={"dine out"}>Dine Out</MenuItem>
+						</Select>
+					</div>
+				</div>
+				<div className="button-group">
+					<Button
+						variant="contained"
+						className="modal-button"
+						color="primary"
+						onClick={handleSave}
+					>
+						Save
+					</Button>
+					<Button
+						variant="outlined"
+						className="modal-button"
+						color="secondary"
+						onClick={handleClose}
+					>
+						Cancel
+					</Button>
+				</div>
 			</form>
 		</div>
 	);
@@ -97,9 +131,9 @@ const Calendar = (props) => {
 				height={"92vh"}
 				ref={calendarRef}
 				dateClick={(info) => {
-					setBody({
-						...body,
-						date: info.date,
+					setData({
+						...data,
+						date: info.dateStr,
 					});
 					handleOpen();
 				}}
