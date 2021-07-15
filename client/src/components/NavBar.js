@@ -146,7 +146,7 @@ export default function NavBar(props) {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}
 		>
-			<MenuItem onClick={handleProfileMenuOpen}>
+			<MenuItem disabled onClick={handleProfileMenuOpen}>
 				<IconButton
 					aria-label="account of current user"
 					aria-controls="primary-search-account-menu"
@@ -212,6 +212,7 @@ export default function NavBar(props) {
 							aria-haspopup="true"
 							onClick={handleProfileMenuOpen}
 							color="inherit"
+							disabled
 						>
 							<AccountCircle />
 						</IconButton>
