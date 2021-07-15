@@ -16,6 +16,8 @@ import { DateTime } from "luxon";
 const Calendar = (props) => {
 	const calendarRef = useRef(null);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [modalType, setModalType] = useState("add");
+	const [eventEl, setEventEl] = useState(null);
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
@@ -61,6 +63,19 @@ const Calendar = (props) => {
 				type: data.type,
 			},
 		});
+		handleClose();
+	};
+
+	const handleUpdate = () => {
+		eventEl.setProp("title", data.name);
+		eventEl.setEnd(
+			DateTime.fromISO(data.date).plus({ days: data.portions }).toISO()
+		);
+		eventEl.setExtendedProp("portions", data.portions);
+		eventEl.setExtendedProp("cost", data.cost);
+		eventEl.setExtendedProp("type", data.type);
+		eventEl.setAllDay(true);
+		setEventEl(null);
 		handleClose();
 	};
 
@@ -119,14 +134,26 @@ const Calendar = (props) => {
 					</div>
 				</div>
 				<div className="button-group">
-					<Button
-						variant="contained"
-						className="modal-button"
-						color="primary"
-						onClick={handleSave}
-					>
-						Save
-					</Button>
+					{modalType === "add" && (
+						<Button
+							variant="contained"
+							className="modal-button"
+							color="primary"
+							onClick={handleSave}
+						>
+							Save
+						</Button>
+					)}
+					{modalType === "update" && (
+						<Button
+							variant="contained"
+							className="modal-button"
+							color="primary"
+							onClick={handleUpdate}
+						>
+							Update
+						</Button>
+					)}
 					<Button
 						variant="outlined"
 						className="modal-button"
@@ -153,6 +180,7 @@ const Calendar = (props) => {
 						...data,
 						date: info.dateStr,
 					});
+					setModalType("add");
 					handleOpen();
 				}}
 				eventClick={(info) => {
@@ -164,6 +192,8 @@ const Calendar = (props) => {
 						type: e.extendedProps.type,
 						date: e.start,
 					});
+					setEventEl(e);
+					setModalType("update");
 					handleOpen();
 				}}
 			/>
