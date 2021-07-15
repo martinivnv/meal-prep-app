@@ -12,6 +12,7 @@ import {
 	Button,
 } from "@material-ui/core";
 import { DateTime } from "luxon";
+import axios from "axios";
 
 const Calendar = (props) => {
 	const calendarRef = useRef(null);
@@ -77,6 +78,9 @@ const Calendar = (props) => {
 				type: data.type,
 			},
 		});
+		axios
+			.post("http://localhost:5000/meals/add", data)
+			.then((res) => console.log(res.data));
 		handleClose();
 	};
 

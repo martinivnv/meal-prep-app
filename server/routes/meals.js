@@ -4,9 +4,9 @@ const router = express.Router();
 let Meal = require("../models/meal.model");
 
 // READ all meals
-router.route("/meal").get((req, res) => {
+router.route("/").get((req, res) => {
 	Meal.find()
-		.then((meals) => meals.json())
+		.then((meals) => res.json(meals))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -22,7 +22,7 @@ router.route("/add").post((req, res) => {
 
 	newMeal
 		.save()
-		.then(() => res.json("Meal added!"))
+		.then(() => res.json("Meal added."))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -52,7 +52,7 @@ router.route("/update/:id").post((req, res) => {
 
 			meal
 				.save()
-				.then(() => res.json("Meal updated!"))
+				.then(() => res.json("Meal updated."))
 				.catch((err) => res.status(400).json("Error: " + err));
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
