@@ -22,7 +22,7 @@ router.route("/add").post((req, res) => {
 
 	newMeal
 		.save()
-		.then(() => res.json("Meal added."))
+		.then((meal) => res.json(meal._id))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 

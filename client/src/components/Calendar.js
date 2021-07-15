@@ -19,6 +19,7 @@ const Calendar = (props) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [modalType, setModalType] = useState("add");
 	const [eventEl, setEventEl] = useState(null);
+	const [generatedId, setGeneratedId] = useState(null);
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
@@ -66,8 +67,12 @@ const Calendar = (props) => {
 
 	const handleSave = () => {
 		let calendarApi = calendarRef.current.getApi();
+		axios.post("http://localhost:5000/meals/add", data).then((res) => {
+			setGeneratedId(JSON.stringify(res.data));
+		});
 		calendarApi.addEvent({
 			title: data.name,
+			id: generatedId,
 			start: data.date,
 			end: DateTime.fromISO(data.date).plus({ days: data.portions }).toISO(),
 			allDay: true,
@@ -78,9 +83,6 @@ const Calendar = (props) => {
 				type: data.type,
 			},
 		});
-		axios
-			.post("http://localhost:5000/meals/add", data)
-			.then((res) => console.log(res.data));
 		handleClose();
 	};
 
