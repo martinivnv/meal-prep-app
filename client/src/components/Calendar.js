@@ -93,6 +93,12 @@ const Calendar = (props) => {
 		handleClose();
 	};
 
+	const handleDelete = () => {
+		eventEl.remove();
+		setEventEl(null);
+		handleClose();
+	};
+
 	const modalForm = (
 		<div className="modalContent">
 			<h2 id="modalTitle">
@@ -182,6 +188,16 @@ const Calendar = (props) => {
 					>
 						Cancel
 					</Button>
+					{modalType === "update" && (
+						<Button
+							variant="outlined"
+							className="modal-button"
+							style={{ color: "#dc143c", borderColor: "#dc143c" }}
+							onClick={handleDelete}
+						>
+							Delete
+						</Button>
+					)}
 				</div>
 			</form>
 		</div>
