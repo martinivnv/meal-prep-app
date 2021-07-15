@@ -23,21 +23,6 @@ const Calendar = (props) => {
 		calendarApi.gotoDate(date);
 	}, [props.month, props.year]);
 
-	const handleOpen = () => setModalOpen(true);
-
-	const handleClose = () => {
-		setData({
-			name: "",
-			portions: 1,
-			cost: 1,
-			type: "",
-			date: DateTime.now(),
-		});
-		setModalOpen(false);
-	};
-
-	const handleSave = () => {};
-
 	const [data, setData] = useState({
 		name: "",
 		portions: 1,
@@ -45,6 +30,39 @@ const Calendar = (props) => {
 		type: "",
 		date: DateTime.now(),
 	});
+
+	const resetData = () => {
+		setData({
+			name: "",
+			portions: 1,
+			cost: 1,
+			type: "",
+			date: DateTime.now(),
+		});
+	};
+
+	const handleOpen = () => setModalOpen(true);
+
+	const handleClose = () => {
+		resetData();
+		setModalOpen(false);
+	};
+
+	const handleSave = () => {
+		let calendarApi = calendarRef.current.getApi();
+		calendarApi.addEvent({
+			title: data.name,
+			start: data.date,
+			end: DateTime.fromISO(data.date).plus({ days: data.portions }).toISO(),
+			allDay: true,
+			extendedProps: {
+				portions: data.portions,
+				cost: data.cost,
+				type: data.type,
+			},
+		});
+		handleClose();
+	};
 
 	const modalForm = (
 		<div className="modalContent">
@@ -134,6 +152,17 @@ const Calendar = (props) => {
 					setData({
 						...data,
 						date: info.dateStr,
+					});
+					handleOpen();
+				}}
+				eventClick={(info) => {
+					const e = info.event;
+					setData({
+						name: e.title,
+						portions: e.extendedProps.portions,
+						cost: e.extendedProps.cost,
+						type: e.extendedProps.type,
+						date: e.start,
 					});
 					handleOpen();
 				}}
