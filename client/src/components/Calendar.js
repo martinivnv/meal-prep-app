@@ -41,7 +41,7 @@ const Calendar = (props) => {
 							.plus({ days: meal.portions })
 							.toISO(),
 						allDay: true,
-						color: handleColour(),
+						color: handleColour(meal.cost),
 						extendedProps: {
 							portions: meal.portions,
 							cost: meal.cost,
@@ -75,8 +75,8 @@ const Calendar = (props) => {
 		});
 	};
 
-	const handleColour = () => {
-		switch (data.cost) {
+	const handleColour = (mealCost) => {
+		switch (mealCost) {
 			case 1:
 				return "#28cc2d";
 			case 2:
@@ -104,7 +104,7 @@ const Calendar = (props) => {
 			start: data.date,
 			end: DateTime.fromISO(data.date).plus({ days: data.portions }).toISO(),
 			allDay: true,
-			color: handleColour(),
+			color: handleColour(data.cost),
 			extendedProps: {
 				portions: data.portions,
 				cost: data.cost,
@@ -129,7 +129,7 @@ const Calendar = (props) => {
 		eventEl.setExtendedProp("portions", data.portions);
 		eventEl.setExtendedProp("cost", data.cost);
 		eventEl.setExtendedProp("type", data.type);
-		eventEl.setProp("color", handleColour());
+		eventEl.setProp("color", handleColour(data.cost));
 		handleClose();
 	};
 
