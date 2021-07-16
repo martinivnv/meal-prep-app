@@ -26,6 +26,35 @@ const Calendar = (props) => {
 		calendarApi.gotoDate(date);
 	}, [props.month, props.year]);
 
+	useEffect(() => {
+		let calendarApi = calendarRef.current.getApi();
+		axios
+			.get("http://localhost:5000/meals/")
+			.then((res) => {
+				console.log(res);
+				res.data.map((meal) => {
+					calendarApi.addEvent({
+						title: meal.name,
+						id: meal._id,
+						start: meal.date,
+						end: DateTime.fromISO(meal.date)
+							.plus({ days: meal.portions })
+							.toISO(),
+						allDay: true,
+						color: handleColour(),
+						extendedProps: {
+							portions: meal.portions,
+							cost: meal.cost,
+							type: meal.type,
+						},
+					});
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
 	const [data, setData] = useState({
 		name: "",
 		portions: 1,
