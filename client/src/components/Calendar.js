@@ -19,7 +19,6 @@ const Calendar = (props) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [modalType, setModalType] = useState("add");
 	const [eventEl, setEventEl] = useState(null);
-	const [generatedId, setGeneratedId] = useState(null);
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
@@ -65,11 +64,8 @@ const Calendar = (props) => {
 		setModalOpen(false);
 	};
 
-	const handleSave = () => {
+	const handleSave = (generatedId) => {
 		let calendarApi = calendarRef.current.getApi();
-		axios.post("http://localhost:5000/meals/add", data).then((res) => {
-			setGeneratedId(JSON.stringify(res.data));
-		});
 		calendarApi.addEvent({
 			title: data.name,
 			id: generatedId,
@@ -84,6 +80,12 @@ const Calendar = (props) => {
 			},
 		});
 		handleClose();
+	};
+
+	const saveToServer = () => {
+		axios.post("http://localhost:5000/meals/add", data).then((res) => {
+			handleSave(res.data);
+		});
 	};
 
 	const handleUpdate = () => {
@@ -171,7 +173,7 @@ const Calendar = (props) => {
 							variant="contained"
 							className="modal-button"
 							color="primary"
-							onClick={handleSave}
+							onClick={saveToServer}
 						>
 							Save
 						</Button>
