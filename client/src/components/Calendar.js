@@ -32,6 +32,7 @@ const Calendar = (props) => {
 		cost: 1,
 		type: "",
 		date: DateTime.now(),
+		id: null,
 	});
 
 	const resetData = () => {
@@ -41,6 +42,7 @@ const Calendar = (props) => {
 			cost: 1,
 			type: "",
 			date: DateTime.now(),
+			id: null,
 		});
 	};
 
@@ -84,6 +86,7 @@ const Calendar = (props) => {
 
 	const saveToServer = () => {
 		axios.post("http://localhost:5000/meals/add", data).then((res) => {
+			console.log(res.data);
 			handleSave(res.data);
 		});
 	};
@@ -99,6 +102,15 @@ const Calendar = (props) => {
 		eventEl.setProp("color", handleColour());
 		setEventEl(null);
 		handleClose();
+	};
+
+	const updateToServer = () => {
+		axios
+			.post("http://localhost:5000/meals/update/" + data.id, data)
+			.then((res) => {
+				console.log(res.data);
+				handleUpdate();
+			});
 	};
 
 	const handleDelete = () => {
@@ -183,7 +195,7 @@ const Calendar = (props) => {
 							variant="contained"
 							className="modal-button"
 							color="primary"
-							onClick={handleUpdate}
+							onClick={updateToServer}
 						>
 							Update
 						</Button>
@@ -235,6 +247,7 @@ const Calendar = (props) => {
 						cost: e.extendedProps.cost,
 						type: e.extendedProps.type,
 						date: e.startStr,
+						id: e.id,
 					});
 					console.log(e);
 					setEventEl(e);
