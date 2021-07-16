@@ -35,9 +35,9 @@ const Calendar = (props) => {
 					return calendarApi.addEvent({
 						title: meal.name,
 						id: meal._id,
-						start: meal.date,
+						start: DateTime.fromISO(meal.date).plus({ days: 1 }).toISO(),
 						end: DateTime.fromISO(meal.date)
-							.plus({ days: meal.portions })
+							.plus({ days: meal.portions + 1 })
 							.toISO(),
 						allDay: true,
 						color: handleColour(meal.cost),
