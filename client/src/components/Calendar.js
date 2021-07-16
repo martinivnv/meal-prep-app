@@ -29,7 +29,7 @@ const Calendar = (props) => {
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
 		axios
-			.get("http://localhost:5000/meals/")
+			.get("http://eatsy-server.herokuapp.com/meals/")
 			.then((res) => {
 				res.data.map((meal) => {
 					return calendarApi.addEvent({
@@ -115,7 +115,7 @@ const Calendar = (props) => {
 
 	const saveToServer = () => {
 		axios
-			.post("http://localhost:5000/meals/add", data)
+			.post("http://eatsy-server.herokuapp.com/meals/add", data)
 			.then((res) => {
 				handleSave(res.data);
 			})
@@ -138,7 +138,7 @@ const Calendar = (props) => {
 
 	const updateToServer = () => {
 		axios
-			.post("http://localhost:5000/meals/update/" + data.id, data)
+			.post("http://eatsy-server.herokuapp.com/meals/update/" + data.id, data)
 			.then((res) => {
 				handleUpdate();
 			})
@@ -154,7 +154,7 @@ const Calendar = (props) => {
 
 	const deleteFromServer = () => {
 		axios
-			.delete("http://localhost:5000/meals/" + data.id, data)
+			.delete("http://eatsy-server.herokuapp.com/meals/" + data.id, data)
 			.then((res) => {
 				handleDelete();
 			})
