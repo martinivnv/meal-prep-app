@@ -31,9 +31,8 @@ const Calendar = (props) => {
 		axios
 			.get("http://localhost:5000/meals/")
 			.then((res) => {
-				console.log(res);
 				res.data.map((meal) => {
-					calendarApi.addEvent({
+					return calendarApi.addEvent({
 						title: meal.name,
 						id: meal._id,
 						start: meal.date,
@@ -115,10 +114,14 @@ const Calendar = (props) => {
 	};
 
 	const saveToServer = () => {
-		axios.post("http://localhost:5000/meals/add", data).then((res) => {
-			console.log(res.data);
-			handleSave(res.data);
-		});
+		axios
+			.post("http://localhost:5000/meals/add", data)
+			.then((res) => {
+				handleSave(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const handleUpdate = () => {
@@ -137,8 +140,10 @@ const Calendar = (props) => {
 		axios
 			.post("http://localhost:5000/meals/update/" + data.id, data)
 			.then((res) => {
-				console.log(res.data);
 				handleUpdate();
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	};
 
@@ -148,10 +153,14 @@ const Calendar = (props) => {
 	};
 
 	const deleteFromServer = () => {
-		axios.delete("http://localhost:5000/meals/" + data.id, data).then((res) => {
-			console.log(res.data);
-			handleDelete();
-		});
+		axios
+			.delete("http://localhost:5000/meals/" + data.id, data)
+			.then((res) => {
+				handleDelete();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const modalForm = (
@@ -284,7 +293,6 @@ const Calendar = (props) => {
 						date: e.startStr,
 						id: e.id,
 					});
-					console.log(e);
 					setEventEl(e);
 					setModalType("update");
 					handleOpen();
