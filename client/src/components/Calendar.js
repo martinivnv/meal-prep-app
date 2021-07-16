@@ -63,6 +63,7 @@ const Calendar = (props) => {
 
 	const handleClose = () => {
 		resetData();
+		setEventEl(null);
 		setModalOpen(false);
 	};
 
@@ -100,7 +101,6 @@ const Calendar = (props) => {
 		eventEl.setExtendedProp("cost", data.cost);
 		eventEl.setExtendedProp("type", data.type);
 		eventEl.setProp("color", handleColour());
-		setEventEl(null);
 		handleClose();
 	};
 
@@ -115,8 +115,14 @@ const Calendar = (props) => {
 
 	const handleDelete = () => {
 		eventEl.remove();
-		setEventEl(null);
 		handleClose();
+	};
+
+	const deleteFromServer = () => {
+		axios.delete("http://localhost:5000/meals/" + data.id, data).then((res) => {
+			console.log(res.data);
+			handleDelete();
+		});
 	};
 
 	const modalForm = (
@@ -213,7 +219,7 @@ const Calendar = (props) => {
 							variant="outlined"
 							className="modal-button"
 							style={{ color: "#dc143c", borderColor: "#dc143c" }}
-							onClick={handleDelete}
+							onClick={deleteFromServer}
 						>
 							Delete
 						</Button>
