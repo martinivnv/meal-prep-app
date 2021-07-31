@@ -48,3 +48,22 @@
 	width: 100px;
 	margin-right: 15px !important;
 }
+
+@media (max-width: 576px) {
+	.modalContent {
+		width: 260px;
+	}
+
+	#select-options {
+		display: grid;
+		grid-template-columns: 80px 52px;
+		margin: 20px 0px;
+		grid-column-gap: 80px;
+		justify-content: start;
+		box-sizing: border-box;
+	}
+
+	#type-select-group {
+		margin-top: 20px;
+	}
+}
