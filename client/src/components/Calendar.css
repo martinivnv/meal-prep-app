@@ -18,7 +18,7 @@
 	flex-direction: column;
 }
 
-#modalTitle {
+.modalTitle {
 	margin-top: 0;
 }
 
@@ -65,5 +65,9 @@
 
 	#type-select-group {
 		margin-top: 20px;
+	}
+
+	.modalTitle {
+		font-size: 1.2em;
 	}
 }

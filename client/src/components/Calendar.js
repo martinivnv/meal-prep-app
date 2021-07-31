@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import { DateTime } from "luxon";
 import axios from "axios";
+import { trackPromise } from "react-promise-tracker";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Calendar = (props) => {
 	const calendarRef = useRef(null);
@@ -28,30 +30,32 @@ const Calendar = (props) => {
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
-		axios
-			.get("https://eatsy-server.herokuapp.com/meals/")
-			.then((res) => {
-				res.data.map((meal) => {
-					return calendarApi.addEvent({
-						title: meal.name,
-						id: meal._id,
-						start: DateTime.fromISO(meal.date).plus({ days: 1 }).toISO(),
-						end: DateTime.fromISO(meal.date)
-							.plus({ days: meal.portions + 1 })
-							.toISO(),
-						allDay: true,
-						color: handleColour(meal.cost),
-						extendedProps: {
-							portions: meal.portions,
-							cost: meal.cost,
-							type: meal.type,
-						},
+		trackPromise(
+			axios
+				.get("https://eatsy-server.herokuapp.com/meals/")
+				.then((res) => {
+					res.data.map((meal) => {
+						return calendarApi.addEvent({
+							title: meal.name,
+							id: meal._id,
+							start: DateTime.fromISO(meal.date).plus({ days: 1 }).toISO(),
+							end: DateTime.fromISO(meal.date)
+								.plus({ days: meal.portions + 1 })
+								.toISO(),
+							allDay: true,
+							color: handleColour(meal.cost),
+							extendedProps: {
+								portions: meal.portions,
+								cost: meal.cost,
+								type: meal.type,
+							},
+						});
 					});
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+		);
 	}, []);
 
 	const [data, setData] = useState({
@@ -165,7 +169,7 @@ const Calendar = (props) => {
 
 	const modalForm = (
 		<div className="modalContent">
-			<h2 id="modalTitle">
+			<h2 className="modalTitle">
 				Add A Meal For{" "}
 				{DateTime.fromISO(data.date).toLocaleString(DateTime.DATE_FULL)}
 			</h2>
@@ -307,6 +311,7 @@ const Calendar = (props) => {
 			>
 				{modalForm}
 			</Modal>
+			<LoadingIndicator />
 		</Fragment>
 	);
 };
