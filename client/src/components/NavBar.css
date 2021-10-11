@@ -1,0 +1,43 @@
+.grow {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.navBar {
+	height: 8vh;
+	justify-content: center;
+	box-shadow: none;
+}
+
+.logo {
+	max-height: 35;
+}
+
+.date {
+	font-size: 1.1rem;
+}
+
+.sectionDesktop {
+	display: none;
+}
+
+.sectionMobile {
+	display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+	.sectionDesktop {
+		display: flex;
+	}
+	.sectionMobile {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.date {
+		font-size: 1.25rem;
+	}
+}
