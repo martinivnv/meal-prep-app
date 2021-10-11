@@ -15,6 +15,7 @@ import {
 } from "@mui/icons-material";
 
 import logo from "../resources/logo.png";
+import "./NavBar.css";
 
 export default function NavBar(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
