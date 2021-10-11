@@ -1,0 +1,14 @@
+#loginModalContent {
+	text-align: center;
+	width: 300px;
+}
+
+@media (max-width: 576px) {
+	#loginModalContent {
+		width: 260px;
+	}
+}
+
+.loginTabPanel {
+	padding: 24px 0px !important;
+}

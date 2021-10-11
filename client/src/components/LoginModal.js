@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { Box, Tabs, Tab, Modal } from "@mui/material";
 import { TabPanel, TabContext } from "@mui/lab";
 import LoginBox from "./LoginBox";
+import "./LoginModal.css";
 
 const LoginModal = () => {
 	const [value, setValue] = useState("1");
@@ -27,10 +28,8 @@ const LoginModal = () => {
 			aria-labelledby="login-modal"
 			aria-describedby="signin-signup"
 		>
-			<div className="modalContent">
-				<h2 className="modalTitle">
-					Welcome to Eatsy - the easiest way to track your meal prep!
-				</h2>
+			<div className="modalContent" id="loginModalContent">
+				<h2 className="modalTitle">Welcome to Eatsy!</h2>
 				<TabContext value={value}>
 					<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 						<Tabs onChange={handleChange} aria-label="login tabs">
@@ -38,7 +37,7 @@ const LoginModal = () => {
 							<Tab label="Sign Up" value="2" />
 						</Tabs>
 					</Box>
-					<TabPanel value="1">
+					<TabPanel value="1" className="loginTabPanel">
 						<LoginBox />
 					</TabPanel>
 					<TabPanel value="2">Item Two</TabPanel>
