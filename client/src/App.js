@@ -3,9 +3,10 @@ import "./App.css";
 
 import NavBar from "./components/NavBar";
 import Calendar from "./components/Calendar";
+import LoginModal from "./components/LoginModal";
 import { DateTime } from "luxon";
 import { useState } from "react";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
 	const now = DateTime.now();
@@ -50,6 +51,7 @@ function App() {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<div className="container">
+					<LoginModal />
 					<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
 					<Calendar month={month} year={year} />
 				</div>
