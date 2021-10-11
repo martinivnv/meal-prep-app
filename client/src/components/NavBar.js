@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import {
 	AccountCircle,
-	MoreIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
+	More,
+	ChevronLeft,
+	ChevronRight,
 } from "@mui/icons-material";
 
 import logo from "../resources/logo.png";
@@ -120,30 +120,10 @@ export default function NavBar(props) {
 		</Menu>
 	);
 
-	/**const [drawerState, setDrawerState] = useState(false);
-
-	const generateDrawer = () => <div className={classes.drawer}>Test</div>;**/
-
 	return (
 		<div className="grow">
 			<AppBar position="static" className="navBar">
 				<Toolbar>
-					{/**<IconButton
-						edge="start"
-						className={classes.menuButton}
-						color="inherit"
-						aria-label="open drawer"
-						onClick={() => setDrawerState(true)}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Drawer
-						anchor={"left"}
-						open={drawerState}
-						onClose={() => setDrawerState(false)}
-					>
-						{generateDrawer()}
-					</Drawer>**/}
 					<img src={logo} alt="logo" className="logo" />
 					<div className="grow">
 						<IconButton
@@ -151,7 +131,7 @@ export default function NavBar(props) {
 							aria-label="go to previous month"
 							onClick={prevMonth}
 						>
-							<ChevronLeftIcon />
+							<ChevronLeft />
 						</IconButton>
 						<Typography variant="h6" className="date">
 							{getMonth() + " " + props.year}
@@ -161,7 +141,7 @@ export default function NavBar(props) {
 							aria-label="go to next month"
 							onClick={nextMonth}
 						>
-							<ChevronRightIcon />
+							<ChevronRight />
 						</IconButton>
 					</div>
 					<div className="sectionDesktop">
@@ -185,7 +165,7 @@ export default function NavBar(props) {
 							onClick={handleMobileMenuOpen}
 							color="inherit"
 						>
-							<MoreIcon />
+							<More />
 						</IconButton>
 					</div>
 				</Toolbar>
