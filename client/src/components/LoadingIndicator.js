@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "react-loader-spinner";
-import { Modal } from "@material-ui/core";
+import { Modal } from "@mui/material";
 import { usePromiseTracker } from "react-promise-tracker";
 import "./LoadingIndicator.css";
 
