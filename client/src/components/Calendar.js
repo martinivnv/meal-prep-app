@@ -191,21 +191,24 @@ const Calendar = ({ year, month, userId }) => {
 					onChange={(e) => setData({ ...data, name: e.target.value })}
 				/>
 				<div id="select-options">
-					<TextField
-						id="num-portions"
-						type="number"
-						label="Portions"
-						value={data.portions}
-						required
-						onChange={(e) => setData({ ...data, portions: e.target.value })}
-						fullWidth={false}
-						InputProps={{
-							inputProps: {
-								max: 99,
-								min: 1,
-							},
-						}}
-					/>
+					<div>
+						<InputLabel id="portion-select-label">Portions *</InputLabel>
+						<TextField
+							id="num-portions"
+							type="number"
+							value={data.portions}
+							required
+							onChange={(e) => setData({ ...data, portions: e.target.value })}
+							fullWidth={false}
+							InputProps={{
+								inputProps: {
+									max: 99,
+									min: 1,
+								},
+							}}
+						/>
+					</div>
+
 					<div id="cost-select-group">
 						<InputLabel id="cost-select-label">Cost *</InputLabel>
 						<Select
