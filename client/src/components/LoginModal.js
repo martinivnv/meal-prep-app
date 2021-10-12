@@ -5,7 +5,7 @@ import LoginBox from "./LoginBox";
 import SignupBox from "./SignupBox";
 import "./LoginModal.css";
 
-const LoginModal = () => {
+const LoginModal = ({ setUserId }) => {
 	const [value, setValue] = useState("1");
 	const [loginModalOpen, setLoginModalOpen] = useState(true);
 
@@ -13,7 +13,7 @@ const LoginModal = () => {
 		setValue(newValue);
 	};
 
-	const handleClose = (e, reason) => {
+	const handleClose = () => {
 		setLoginModalOpen(false);
 	};
 
@@ -22,7 +22,7 @@ const LoginModal = () => {
 			open={loginModalOpen}
 			onClose={(event, reason) => {
 				if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
-					handleClose(event, reason);
+					handleClose();
 				}
 			}}
 			className="loginModal"
@@ -39,7 +39,7 @@ const LoginModal = () => {
 						</TabList>
 					</Box>
 					<TabPanel value="1" className="loginTabPanel">
-						<LoginBox />
+						<LoginBox handleClose={handleClose} setUserId={setUserId} />
 					</TabPanel>
 					<TabPanel value="2" className="loginTabPanel">
 						<SignupBox />
