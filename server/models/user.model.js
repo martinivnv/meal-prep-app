@@ -13,11 +13,9 @@ const userSchema = new Schema({
 	password: {
 		type: String,
 		required: true,
-		minLength: [6, "Password must be at least 6 characters long"],
-		maxLength: [15, "Password cannot be longer than 15 characters"],
 	},
 });
 
-const User = mongoose.model("User", usersSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

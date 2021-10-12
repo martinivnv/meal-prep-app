@@ -1,10 +1,10 @@
-const User = require("../models/User");
+const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { createJWT } = require("../utils/authU");
 
 exports.signup = (req, res, next) => {
-	let { username, password, password_confirmation } = req.body;
+	let { username, password } = req.body;
 	let errors = [];
 	if (!username) {
 		errors.push({ username: "required" });

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 
 let Meal = require("../models/meal.model");
 
@@ -13,7 +14,7 @@ router.route("/").get((req, res) => {
 // READ meals by user
 router.route("/user/:userId").get((req, res) => {
 	Meal.find({ user: req.params.userId })
-		.then((user) => res.json(user.meals))
+		.then((meals) => res.json(meals))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -24,7 +25,7 @@ router.route("/add").post((req, res) => {
 	const cost = Number(req.body.cost);
 	const type = req.body.type;
 	const date = Date.parse(req.body.date);
-	const user = req.body.userId;
+	const user = mongoose.Types.ObjectId(req.body.userId);
 
 	const newMeal = new Meal({ name, portions, cost, type, date, user });
 

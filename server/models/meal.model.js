@@ -8,7 +8,7 @@ const mealSchema = new Schema({
 	cost: { type: Number, required: true, min: 1, max: 3 }, // i.e. "$", "$$", or "$$$"
 	type: { type: String, required: true }, // i.e. home-cooked, delivery, dining out
 	date: { type: Date, required: true },
-	user: { type: Schema.Types.ObjectId, ref: "User" },
+	user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 const Meal = mongoose.model("Meal", mealSchema);
