@@ -27,7 +27,7 @@ const LoginBox = ({ handleClose, setUserId }) => {
 			.then((res) => {
 				if (res.status === 200) {
 					setErrorAlert("");
-					setUserId(res.data.message._id);
+					setUserId(username);
 					handleClose();
 				}
 			})

@@ -12,8 +12,8 @@ router.route("/").get((req, res) => {
 });
 
 // READ meals by user
-router.route("/user/:userId").get((req, res) => {
-	Meal.find({ user: req.params.userId })
+router.route("/user/:username").get((req, res) => {
+	Meal.find({ user: req.params.username })
 		.then((meals) => res.json(meals))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
@@ -25,7 +25,7 @@ router.route("/add").post((req, res) => {
 	const cost = Number(req.body.cost);
 	const type = req.body.type;
 	const date = Date.parse(req.body.date);
-	const user = mongoose.Types.ObjectId(req.body.userId);
+	const user = req.body.username;
 
 	const newMeal = new Meal({ name, portions, cost, type, date, user });
 
@@ -58,7 +58,7 @@ router.route("/update/:id").post((req, res) => {
 			meal.cost = Number(req.body.cost);
 			meal.type = req.body.type;
 			meal.date = Date.parse(req.body.date);
-			meal.user = mongoose.Types.ObjectId(req.body.userId);
+			meal.user = req.body.username;
 
 			meal
 				.save()

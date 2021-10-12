@@ -91,8 +91,6 @@ exports.signin = (req, res) => {
 								if (decoded) {
 									return res.status(200).json({
 										success: true,
-										token: access_token,
-										message: user,
 									});
 								}
 							}

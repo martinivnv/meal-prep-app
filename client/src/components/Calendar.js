@@ -16,7 +16,7 @@ import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import LoadingIndicator from "./LoadingIndicator";
 
-const Calendar = (props) => {
+const Calendar = ({ year, month, userId }) => {
 	const calendarRef = useRef(null);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [modalType, setModalType] = useState("add");
@@ -24,15 +24,16 @@ const Calendar = (props) => {
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
-		let date = Date.UTC(props.year, props.month);
+		let date = Date.UTC(year, month);
 		calendarApi.gotoDate(date);
-	}, [props.month, props.year]);
+	}, [month, year]);
 
 	useEffect(() => {
 		let calendarApi = calendarRef.current.getApi();
 		trackPromise(
 			axios
-				.get("https://eatsy-server.herokuapp.com/meals/")
+				//.get("https://eatsy-server.herokuapp.com/meals/user/" + userId)
+				.get("http://localhost:5000/meals/user/" + userId)
 				.then((res) => {
 					res.data.map((meal) => {
 						return calendarApi.addEvent({
@@ -56,7 +57,7 @@ const Calendar = (props) => {
 					console.log(err);
 				})
 		);
-	}, []);
+	}, [userId]);
 
 	const [data, setData] = useState({
 		name: "",
@@ -91,7 +92,10 @@ const Calendar = (props) => {
 		}
 	};
 
-	const handleOpen = () => setModalOpen(true);
+	const handleOpen = () => {
+		console.log(userId);
+		setModalOpen(true);
+	};
 
 	const handleClose = () => {
 		resetData();
@@ -119,7 +123,11 @@ const Calendar = (props) => {
 
 	const saveToServer = () => {
 		axios
-			.post("https://eatsy-server.herokuapp.com/meals/add", data)
+			//.post("https://eatsy-server.herokuapp.com/meals/add", {
+			.post("http://localhost:5000/meals/add", {
+				...data,
+				username: userId,
+			})
 			.then((res) => {
 				handleSave(res.data);
 			})

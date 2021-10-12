@@ -12,6 +12,7 @@ function App() {
 	const now = DateTime.now();
 	const [month, setMonth] = useState(now.month);
 	const [year, setYear] = useState(now.year);
+	const [userId, setUserId] = useState("");
 
 	const theme = createTheme({
 		palette: {
@@ -51,9 +52,9 @@ function App() {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<div className="container">
-					<LoginModal />
+					<LoginModal setUserId={setUserId} />
 					<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
-					<Calendar month={month} year={year} />
+					<Calendar month={month} year={year} userId={userId} />
 				</div>
 			</ThemeProvider>
 		</Router>
