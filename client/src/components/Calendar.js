@@ -32,8 +32,7 @@ const Calendar = ({ year, month, userId }) => {
 		let calendarApi = calendarRef.current.getApi();
 		trackPromise(
 			axios
-				//.get("https://eatsy-server.herokuapp.com/meals/user/" + userId)
-				.get("http://localhost:5000/meals/user/" + userId)
+				.get("https://eatsy-server.herokuapp.com/meals/user/" + userId)
 				.then((res) => {
 					res.data.map((meal) => {
 						return calendarApi.addEvent({
@@ -93,7 +92,6 @@ const Calendar = ({ year, month, userId }) => {
 	};
 
 	const handleOpen = () => {
-		console.log(userId);
 		setModalOpen(true);
 	};
 
@@ -123,8 +121,7 @@ const Calendar = ({ year, month, userId }) => {
 
 	const saveToServer = () => {
 		axios
-			//.post("https://eatsy-server.herokuapp.com/meals/add", {
-			.post("http://localhost:5000/meals/add", {
+			.post("https://eatsy-server.herokuapp.com/meals/add", {
 				...data,
 				username: userId,
 			})
@@ -150,7 +147,10 @@ const Calendar = ({ year, month, userId }) => {
 
 	const updateToServer = () => {
 		axios
-			.post("https://eatsy-server.herokuapp.com/meals/update/" + data.id, data)
+			.post("https://eatsy-server.herokuapp.com/meals/update/" + data.id, {
+				...data,
+				username: userId,
+			})
 			.then((res) => {
 				handleUpdate();
 			})

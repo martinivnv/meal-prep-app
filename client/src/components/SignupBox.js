@@ -20,8 +20,7 @@ const SignupBox = () => {
 
 	const handleSubmit = (e) => {
 		axios
-			//.post("https://eatsy-server.herokuapp.com/user/signup/", {
-			.post("http://localhost:5000/user/signup/", {
+			.post("https://eatsy-server.herokuapp.com/user/signup/", {
 				username: username,
 				password: password,
 			})
