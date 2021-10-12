@@ -58,6 +58,7 @@ router.route("/update/:id").post((req, res) => {
 			meal.cost = Number(req.body.cost);
 			meal.type = req.body.type;
 			meal.date = Date.parse(req.body.date);
+			meal.user = mongoose.Types.ObjectId(req.body.userId);
 
 			meal
 				.save()
