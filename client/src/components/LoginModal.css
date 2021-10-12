@@ -12,3 +12,7 @@
 .loginTabPanel {
 	padding: 24px 0px !important;
 }
+
+.loginModalTab {
+	width: 50%;
+}

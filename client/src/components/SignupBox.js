@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { FormControl, InputLabel, OutlinedInput, Button } from "@mui/material";
 import "./LoginBox.css";
 
-const LoginBox = () => {
+const SignupBox = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -21,7 +21,7 @@ const LoginBox = () => {
 	return (
 		<form className="modalForm" id="loginForm" noValidate autoComplete="off">
 			<FormControl>
-				<InputLabel htmlFor="component-outlined">Username</InputLabel>
+				<InputLabel htmlFor="component-outlined">New Username</InputLabel>
 				<OutlinedInput
 					id="username-input"
 					value={username}
@@ -31,7 +31,7 @@ const LoginBox = () => {
 				/>
 			</FormControl>
 			<FormControl>
-				<InputLabel htmlFor="component-outlined">Password</InputLabel>
+				<InputLabel htmlFor="component-outlined">New Password</InputLabel>
 				<OutlinedInput
 					id="password-input"
 					value={password}
@@ -46,10 +46,10 @@ const LoginBox = () => {
 				color="primary"
 				onClick={submit}
 			>
-				Log In
+				Sign Up
 			</Button>
 		</form>
 	);
 };
 
-export default LoginBox;
+export default SignupBox;
