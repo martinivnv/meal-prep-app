@@ -22,8 +22,10 @@ connection.once("open", () => {
 });
 
 const mealsRouter = require("./routes/meals");
+const authRouter = require("./routes/auth");
 
 app.use("/meals", mealsRouter);
+app.use("/user", authRouter);
 
 app.listen(port, () => {
 	console.log(`Server is running on port: ${port}`);

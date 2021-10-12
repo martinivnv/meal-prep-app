@@ -10,6 +10,13 @@ router.route("/").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+// READ meals by user
+router.route("/user/:userId").get((req, res) => {
+	Meal.find({ user: req.params.userId })
+		.then((user) => res.json(user.meals))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
 // CREATE a new meal
 router.route("/add").post((req, res) => {
 	const name = req.body.name;
@@ -17,8 +24,9 @@ router.route("/add").post((req, res) => {
 	const cost = Number(req.body.cost);
 	const type = req.body.type;
 	const date = Date.parse(req.body.date);
+	const user = req.body.userId;
 
-	const newMeal = new Meal({ name, portions, cost, type, date });
+	const newMeal = new Meal({ name, portions, cost, type, date, user });
 
 	newMeal
 		.save()
