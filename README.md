@@ -51,6 +51,9 @@
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
     <li>
+      <a href="#screenshots">Screenshots</a>
+    </li>
+    <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
@@ -70,13 +73,18 @@
   </ol>
 </details>
 
-
+## Images
+<p align="center">
+<img src="images/screenshot.png" alt="screenshot" width="800" >
+    <p align="center">
+      Figure 1: Application in use
+    </p>
+</p>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 A full-stack app for planning and tracking your meals to save money and reduce food waste. Reads meals from a MongoDB database using a custom-built API and displays them in a calendar, allowing the user to add, update, and delete meals. The functionality of the app mimics that of Google Calendar.
-Here's a blank template to get started:
 
 ### Built With
 
