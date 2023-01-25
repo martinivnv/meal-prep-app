@@ -21,6 +21,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
+:warning: **Eatsy is currently down!**: I am currently dealing with fixing server issues caused by Heroku shutting down their free tier servers.
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
