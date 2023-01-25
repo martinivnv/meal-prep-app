@@ -7,6 +7,7 @@ import LoginModal from "./components/LoginModal";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Modal } from "@mui/material";
 
 function App() {
 	const now = DateTime.now();
@@ -52,7 +53,16 @@ function App() {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<div className="container">
-					<LoginModal setUserId={setUserId} />
+					<Modal open={true} className="warningModal">
+						<div className="modalContent" id="loginModalContent">
+							<h2 className="modalTitle">Eatsy is down!</h2>
+							<p>
+								Please be patient, we are currently working on resolving issues
+								with our server providers.
+							</p>
+						</div>
+					</Modal>
+					{/* <LoginModal setUserId={setUserId} /> */}
 					<NavBar month={month} year={year} changeMonth={changeMonthHandler} />
 					<Calendar month={month} year={year} userId={userId} />
 				</div>
